@@ -1,0 +1,79 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Newsreader', 'Georgia', serif;
+
+  /* Light editorial canvas */
+  --color-canvas: #fcfcfa;
+  --color-canvas-alt: #f7f6f3; /* warm-alt */
+  --color-cool-alt: #f4f6f8;
+  --color-blue-alt: #f2f5f8;
+  --color-surface: #ffffff;
+
+  --color-ink: #111111;
+  --color-ink-soft: #4a4944;
+  --color-ink-faint: #666660; /* muted-text */
+  /* Icons need more presence than muted text: ~72% ink so a glyph is
+     legible at 16px against the pale surfaces. */
+  --color-icon: #3f3f3b;
+
+  --color-border: rgba(17, 17, 17, 0.1);
+  --color-border-strong: rgba(17, 17, 17, 0.18);
+
+  /* Dark hero only — the one intentional dark moment on the site */
+  --color-dark: #101114;
+  --color-dark-ink: #f5f5f2;
+  --color-dark-ink-soft: rgba(255, 255, 255, 0.62);
+  --color-dark-border: rgba(255, 255, 255, 0.12);
+
+  /* Single personal accent, used sparingly — never Ken red */
+  --color-accent: #3157e8;
+  --color-accent-ink: #ffffff;
+  --color-accent-tint: rgba(49, 87, 232, 0.08);
+  --color-accent-tint-strong: rgba(49, 87, 232, 0.14);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+

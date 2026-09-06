@@ -1,0 +1,80 @@
+import { ArrowUpRight } from 'lucide-react'
+import type { ReactNode } from 'react'
+import { Link } from 'react-router-dom'
+import { Reveal } from './Reveal'
+
+type ProjectCardProps = {
+  index: string
+  category: string
+  title: string
+  outcome: string
+  capabilities: string[]
+  href: string
+  visual: ReactNode
+  visualClassName?: string
+  delay?: number
+  compact?: boolean
+  external?: boolean
+}
+
+export function ProjectCard({
+  index,
+  category,
+  title,
+  outcome,
+  capabilities,
+  href,
+  visual,
+  visualClassName = '',
+  delay = 0,
+  compact = false,
+  external = false,
+}: ProjectCardProps) {
+  const content = (
+    <>
+      <div className={`overflow-hidden ${visualClassName || 'aspect-[16/10]'}`}>
+        <div className="h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.02] group-focus-visible:scale-[1.02]">
+          {visual}
+        </div>
+      </div>
+
+      <div className={`flex flex-1 flex-col border-t border-border ${compact ? 'p-5 md:p-6' : 'p-6 md:p-7'}`}>
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+          {index} / {category}
+        </p>
+        <h3
+          className={`mt-3 font-sans font-medium tracking-tight text-ink transition-colors duration-300 group-hover:text-accent group-focus-visible:text-accent ${compact ? 'text-lg md:text-xl' : 'text-xl md:text-2xl'}`}
+        >
+          {title}
+        </h3>
+        <p className="mt-2 max-w-md text-ink-soft">{outcome}</p>
+
+        <div className="mt-auto flex items-end justify-between pt-6">
+          <p className="max-w-xs text-sm text-ink-faint">{capabilities.join(' · ')}</p>
+          <ArrowUpRight
+            size={20}
+            strokeWidth={1.6}
+            className="shrink-0 text-icon transition-all duration-200 group-hover:-translate-y-[3px] group-hover:translate-x-[3px] group-hover:text-accent group-focus-visible:-translate-y-[3px] group-focus-visible:translate-x-[3px] group-focus-visible:text-accent"
+          />
+        </div>
+      </div>
+    </>
+  )
+
+  const className =
+    'group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface outline-none transition-[border-color,box-shadow] duration-200 hover:border-accent/40 hover:shadow-[0_14px_36px_-22px_rgba(17,17,17,0.35)] focus-visible:border-accent/40 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas'
+
+  return (
+    <Reveal delay={delay} className="h-full">
+      {external ? (
+        <a href={href} target="_blank" rel="noreferrer" className={className}>
+          {content}
+        </a>
+      ) : (
+        <Link to={href} className={className}>
+          {content}
+        </Link>
+      )}
+    </Reveal>
+  )
+}
