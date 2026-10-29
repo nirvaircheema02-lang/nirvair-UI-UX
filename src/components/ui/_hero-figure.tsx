@@ -141,8 +141,8 @@ export function HeroFigure({ inline = false }: { inline?: boolean }) {
         style={inline ? {
           height: '108cqh',
           top: 0,
-          // Face sits at ~75% of the frame; centre it in the column.
-          left: 'calc(50cqw - 144cqh)',
+          // His face sits at ~84% of the clip's width; put it on the column's centre line.
+          left: 'calc(50cqw - 161cqh)',
           maskImage: 'linear-gradient(to bottom, transparent, black 14%)',
           WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 14%)',
         } : {
