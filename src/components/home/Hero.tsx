@@ -2,6 +2,9 @@ import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } fro
 import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { useEffect, useRef, useState, type RefObject } from 'react'
 import { heroCopy, profile } from '../../lib/site'
+import { AmbientSmoke } from '../ui/_ambient-smoke'
+import { HeroFigure } from '../ui/_hero-figure'
+import { RevealHeadline } from '../ui/_hero-headline'
 import { DotField } from '../ui/DotField'
 
 function HeroPortrait({ containerRef }: { containerRef: RefObject<HTMLElement | null> }) {
@@ -53,6 +56,8 @@ function HeroPortrait({ containerRef }: { containerRef: RefObject<HTMLElement | 
     )
   }
 
+  const fade = 'linear-gradient(to bottom, black 80%, transparent 97%)'
+
   return (
     <div style={{ perspective: 1000 }}>
       <motion.img
@@ -66,8 +71,8 @@ function HeroPortrait({ containerRef }: { containerRef: RefObject<HTMLElement | 
           rotateY,
           x: shiftX,
           y: shiftY,
-          maskImage: 'linear-gradient(to bottom, black 80%, transparent 97%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 97%)',
+          maskImage: fade,
+          WebkitMaskImage: fade,
         }}
       />
     </div>
@@ -81,42 +86,57 @@ export function Hero() {
     <section
       id="main"
       ref={heroRef}
-      className="relative flex min-h-[88svh] flex-col justify-center overflow-hidden bg-dark text-dark-ink md:min-h-[92svh]"
+      // The portrait cut fills the first screen outright: the figure is sized
+      // against the hero, so a hero shorter than the window leaves him small.
+      className="relative flex min-h-[88svh] flex-col justify-center overflow-hidden bg-dark text-dark-ink md:min-h-[65svh]"
     >
+      <AmbientSmoke />
+      <HeroFigure />
       <DotField tone="dark" pointer parallax={12} drift={9} centerRelief />
 
       <div aria-hidden className="pointer-events-none absolute inset-0 select-none overflow-hidden">
-        <span className="absolute -right-4 bottom-0 font-sans text-[26vw] font-semibold leading-none tracking-tighter text-white/[0.025] md:text-[18vw]">
+        {/* The lit figure sits exactly where this word runs, and pale letters
+            across his jacket read as a printing fault, so it fades out before
+            it reaches him. */}
+        <span
+          style={{
+            maskImage: 'linear-gradient(to right, black 34%, transparent 64%)',
+            WebkitMaskImage: 'linear-gradient(to right, black 34%, transparent 64%)',
+          }}
+          className="absolute -right-4 bottom-0 font-sans text-[26vw] font-semibold leading-none tracking-tighter text-white/[0.012] md:text-[18vw]"
+        >
           DESIGN
         </span>
       </div>
 
-      <div className="relative mx-auto w-full max-w-6xl flex-1 px-6 py-24 md:py-28">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.55fr_1fr] md:items-center md:gap-10">
+      {/* Equal air above and below the text block, and little of it: the hero
+          reads as one composition in one viewport. */}
+      <div className="relative mx-auto w-full max-w-6xl flex-1 px-6 py-24 md:pb-24 md:pt-32">
+        {/* The figure is a full-bleed layer on desktop, so the grid collapses to
+            the text column and the headline keeps its measure. */}
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-[minmax(0,1fr)_0] md:items-center md:gap-10">
           <div>
             <motion.p
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-xs font-semibold uppercase tracking-[0.16em] text-dark-ink"
+              className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-dark-ink"
             >
+              <span aria-hidden className="h-px w-9 bg-accent" />
               {profile.name} · {heroCopy.eyebrow}
             </motion.p>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="mt-6 max-w-xl font-sans text-4xl font-medium leading-[1.15] tracking-tight text-dark-ink md:text-5xl lg:text-[3.4rem]"
-            >
-              {heroCopy.headline}
-            </motion.h1>
+            <RevealHeadline
+              text={heroCopy.headline}
+              breakAfter={['systems', 'scalable']}
+              className="mt-6 max-w-[14em] font-sans text-4xl font-semibold leading-[1.04] tracking-[-0.035em] text-dark-ink md:text-[2.5rem] lg:text-[3.1rem]"
+            />
 
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-6 max-w-md text-lg leading-relaxed text-dark-ink-soft"
+              className="mt-5 max-w-md text-base leading-relaxed text-dark-ink-soft"
             >
               {heroCopy.supporting}
             </motion.p>
@@ -125,7 +145,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-9 flex flex-wrap items-center gap-4"
+              className="mt-7 flex flex-wrap items-center gap-4"
             >
               <a
                 href="#work"
@@ -146,11 +166,12 @@ export function Hero() {
             </motion.div>
           </div>
 
+          {/* Phones get the in-column portrait; the full-bleed figure is desktop only. */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="relative mx-auto w-full max-w-xs md:max-w-none"
+            className="relative mx-auto w-full max-w-xs md:hidden"
           >
             <HeroPortrait containerRef={heroRef} />
           </motion.div>

@@ -2,6 +2,7 @@ import { Eyebrow } from '../ui/Eyebrow'
 import { ArrowUpRight } from 'lucide-react'
 import { about, capabilities, profile } from '../../lib/site'
 import { ICON_STROKE } from '../ui/icons'
+import { AboutPortrait } from '../ui/AboutPortrait'
 import { Reveal } from '../ui/Reveal'
 
 export function About() {
@@ -10,12 +11,7 @@ export function About() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:gap-16">
           <Reveal direction="left">
-            <img
-              src="/images/hero-portrait.png"
-              alt={profile.name}
-              loading="lazy"
-              className="w-full max-w-sm border border-border object-cover"
-            />
+            <AboutPortrait />
           </Reveal>
 
           <div>

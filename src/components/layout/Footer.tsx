@@ -1,6 +1,7 @@
 import { ArrowUp, ArrowUpRight } from 'lucide-react'
 import { useState } from 'react'
 import { footerCopy, profile } from '../../lib/site'
+import { FooterFigure } from '../ui/FooterFigure'
 import { Reveal } from '../ui/Reveal'
 import { ContactSheet } from './ContactSheet'
 
@@ -13,8 +14,9 @@ export function Footer() {
   const [contactOpen, setContactOpen] = useState(false)
 
   return (
-    <footer className="border-t border-dark-border bg-dark text-dark-ink">
-      <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+    <footer className="relative overflow-hidden border-t border-dark-border bg-dark text-dark-ink">
+      <FooterFigure />
+      <div className="relative mx-auto max-w-6xl px-6 py-24 md:py-32">
         <Reveal>
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-dark-ink">
             {footerCopy.eyebrow}
