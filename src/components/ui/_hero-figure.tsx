@@ -59,7 +59,12 @@ function headOffset(t: number): [number, number] {
   ]
 }
 
-export function HeroFigure() {
+/**
+ * `inline` is the phone layout: the same clip and light, but in the document
+ * flow under the copy instead of a full-bleed layer behind it, framed so he
+ * stands centred with the generator's mark cropped off the bottom.
+ */
+export function HeroFigure({ inline = false }: { inline?: boolean }) {
   const reduceMotion = useReducedMotion()
   const videoRef = useRef<HTMLVideoElement>(null)
   const headRef = useRef<HTMLImageElement>(null)
@@ -122,17 +127,25 @@ export function HeroFigure() {
     'pointer-events-none absolute inset-0 h-full w-full select-none object-fill'
 
   return (
-    /* Desktop only. Stacked on a phone the full-bleed figure lands on top of
-       the paragraph and the buttons, so the narrow layout keeps the ordinary
-       in-column portrait and this layer sits out. */
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-0 hidden overflow-hidden md:block"
+      className={
+        inline
+          ? 'pointer-events-none relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden'
+          : 'pointer-events-none absolute inset-0 overflow-hidden'
+      }
       style={{ containerType: 'size' }}
     >
       <motion.div
         className="absolute aspect-video"
-        style={{
+        style={inline ? {
+          height: '108cqh',
+          top: 0,
+          // Face sits at ~75% of the frame; centre it in the column.
+          left: 'calc(50cqw - 144cqh)',
+          maskImage: 'linear-gradient(to bottom, transparent, black 14%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 14%)',
+        } : {
           // Sized against the hero's HEIGHT, so he is the same size on every
           // window, and set to the scale of a person in the room (turban ~9% of the
           // width), not a near close-up.
@@ -193,14 +206,16 @@ export function HeroFigure() {
 
       {/* Reading scrim. It sits above him on purpose: the reference lets the
           figure fall away into the dark on the headline side rather than
-          ending at a hard edge. */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'linear-gradient(to right, rgb(16,17,20) 0%, rgba(16,17,20,0.94) 30%, rgba(16,17,20,0.62) 48%, rgba(16,17,20,0.22) 62%, rgba(16,17,20,0) 76%)',
-        }}
-      />
+          ending at a hard edge. Desktop only: on a phone he sits under the copy. */}
+      {!inline && (
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(to right, rgb(16,17,20) 0%, rgba(16,17,20,0.94) 30%, rgba(16,17,20,0.62) 48%, rgba(16,17,20,0.22) 62%, rgba(16,17,20,0) 76%)',
+          }}
+        />
+      )}
     </div>
   )
 }
