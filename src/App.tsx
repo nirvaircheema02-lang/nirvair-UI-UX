@@ -3,6 +3,7 @@ import { Footer } from './components/layout/Footer'
 import { Nav } from './components/layout/Nav'
 import { ScrollToTop } from './components/layout/ScrollToTop'
 import { Home } from './pages/Home'
+import { AgentPipeline } from './pages/work/AgentPipeline'
 import { AmritStudio } from './pages/work/AmritStudio'
 import { ArjunRealty } from './pages/work/ArjunRealty'
 import { Conversion } from './pages/work/Conversion'
@@ -27,6 +28,7 @@ function App() {
             <Route path="/work/conversion" element={<Conversion />} />
             <Route path="/work/arjun-realty" element={<ArjunRealty />} />
             <Route path="/work/amrit-studio" element={<AmritStudio />} />
+            <Route path="/work/agent-pipeline" element={<AgentPipeline />} />
           </Routes>
         </main>
         <Footer />

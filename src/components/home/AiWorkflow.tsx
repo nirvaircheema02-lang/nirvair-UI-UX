@@ -16,6 +16,7 @@ import { aiWorkflow } from '../../lib/site'
 import { IconBadge } from '../ui/IconBadge'
 import { FigmaMark, ICON_STROKE } from '../ui/icons'
 import { Reveal } from '../ui/Reveal'
+import { Link } from 'react-router-dom'
 
 type IconType = ComponentType<{ size?: number; strokeWidth?: number; className?: string }>
 
@@ -225,6 +226,11 @@ export function AiWorkflow() {
               ))}
             </ol>
           </div>
+        </Reveal>
+        <Reveal className="mt-10 border-t border-border pt-7">
+          <Link to="/work/agent-pipeline" className="inline-flex min-h-11 items-center gap-3 text-sm font-medium text-accent underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">
+            Explore the Audit & Redesign Agent case study <span aria-hidden>↗</span>
+          </Link>
         </Reveal>
       </div>
     </section>

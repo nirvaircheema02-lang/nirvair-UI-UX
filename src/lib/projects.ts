@@ -99,7 +99,18 @@ export const moreWork: (ProjectMeta & { index: string })[] = [
   },
 ]
 
-export const allProjects = [...featuredProjects, ...clientProjects]
+export const agentProject: ProjectMeta = {
+  slug: 'agent-pipeline',
+  title: 'AI Design Audit & Redesign',
+  positioning: 'Connecting design-system evidence, human review and verified interface fixes.',
+  capabilities: ['Agent Architecture', 'Design QA', 'Human Review'],
+  category: 'flagship',
+  route: '/work/agent-pipeline',
+  cover: '/assets/projects/agent-pipeline/redesign-overview.png',
+  coverAlt: 'The actual Fix & Redesign Agent interactive walkthrough',
+}
+
+export const allProjects = [...featuredProjects, agentProject, ...clientProjects]
 
 export function getProjectBySlug(slug: string) {
   return allProjects.find((p) => p.slug === slug)

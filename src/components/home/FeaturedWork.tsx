@@ -1,8 +1,10 @@
-import { Eyebrow } from '../ui/Eyebrow'
-import { featuredProjects } from '../../lib/projects'
+import { agentProject, featuredProjects } from '../../lib/projects'
 import { selectedWorkCopy } from '../../lib/site'
+import { AgentPipelineShowcase } from '../case-study/AgentPipelineShowcase'
+import { Eyebrow } from '../ui/Eyebrow'
 import { ProjectCard } from '../ui/ProjectCard'
 import { Reveal } from '../ui/Reveal'
+import { KenSurveyShowcase } from '../case-study/KenSurveyShowcase'
 
 const MI = '/assets/projects/market-intelligence/'
 const DS = '/assets/projects/design-system/'
@@ -42,27 +44,31 @@ function DesignSystemVisual() {
 }
 
 function KenSurveyVisual() {
-  return (
-    <div className="flex h-full w-full items-center justify-center bg-canvas-alt p-4">
-      <img
-        src="/assets/projects/ken-survey/survey-hero.png"
-        alt="Ken Survey homepage, live product"
-        className="h-full w-full object-contain"
-        loading="lazy"
-      />
-    </div>
-  )
+  return <KenSurveyShowcase />
 }
 
 function ConversionVisual() {
   return (
-    <div className="flex h-full w-full items-center justify-center bg-blue-alt p-4">
-      <img
-        src={`${MI}v01-cta-metadata-crop.png`}
-        alt="Report detail page — structured metadata and sample-report CTA, the conversion decision this project shipped"
-        className="h-full w-full object-contain"
-        loading="lazy"
-      />
+    <div className="relative h-full w-full overflow-hidden bg-[#e9ebee]">
+      <div className="absolute inset-x-[7%] top-[7%] h-px bg-white/80" aria-hidden />
+      <div className="absolute left-[9%] top-[9%] w-[61%] overflow-hidden rounded-t-[0.7rem] border border-[#d9dce2] bg-white shadow-[0_22px_45px_-21px_rgba(30,37,55,0.35)] transition-transform duration-500 ease-out group-hover:-translate-y-1 group-focus-visible:-translate-y-1">
+        <img
+          src="/assets/projects/conversion/v2/form-call.webp"
+          alt="Book a Discovery Call form showing progress, contact fields and verification details"
+          className="block h-auto w-full"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div className="absolute bottom-[6%] right-[7%] w-[27%] overflow-hidden rounded-[1.1rem] border-[4px] border-[#22232a] bg-white shadow-[0_24px_36px_-15px_rgba(30,37,55,0.45)] transition-transform duration-500 ease-out group-hover:-translate-y-2 group-focus-visible:-translate-y-2 sm:rounded-[1.4rem] sm:border-[6px]">
+        <img
+          src="/assets/projects/conversion/v2/m-form.webp"
+          alt="Mobile sample report form with clear fields and a single-column layout"
+          className="block h-auto w-full"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
     </div>
   )
 }
@@ -75,56 +81,77 @@ export function FeaturedWork() {
       index: '01',
       category: 'Product Design',
       project: marketIntelligence,
+      title: 'Market Intelligence',
+      description: 'Research discovery, flexible reports and downloadable insights.',
       visual: <MarketIntelligenceVisual />,
     },
     {
       index: '02',
       category: 'Design Systems',
       project: designSystem,
+      title: 'Ken Design System',
+      description: 'Shared components and patterns for a growing product ecosystem.',
       visual: <DesignSystemVisual />,
     },
     {
       index: '03',
       category: 'Product UX',
       project: kenSurvey,
+      title: 'Ken Survey',
+      description: 'One survey ecosystem for five distinct research needs.',
       visual: <KenSurveyVisual />,
     },
     {
       index: '04',
       category: 'Conversion UX',
       project: conversion,
+      title: 'Conversion & Lead Journeys',
+      description: 'Simpler forms and enquiry journeys across desktop and mobile.',
       visual: <ConversionVisual />,
+    },
+    {
+      index: '05',
+      category: 'AI Agents & Design QA',
+      project: agentProject,
+      title: 'AI Design Audit & Redesign',
+      description: 'Connected agents for design audits, reviewed fixes and verification.',
+      visual: <AgentPipelineShowcase />,
     },
   ]
 
   return (
-    <section id="work" className="scroll-mt-24 bg-canvas py-20 md:py-28">
+    <section id="work" className="scroll-mt-24 bg-canvas pb-8 pt-20 md:pt-24">
       <div className="mx-auto max-w-6xl px-6">
-        <Reveal className="mb-14 md:mb-20">
-          <Eyebrow>
-            Selected Work
-          </Eyebrow>
+        <Reveal className="mb-10 md:mb-12">
+          <Eyebrow>Selected Work</Eyebrow>
           <h2 className="mt-4 max-w-2xl font-sans text-3xl font-medium leading-[1.15] tracking-tight text-ink md:text-4xl">
             {selectedWorkCopy.heading}
           </h2>
-          <p className="mt-4 max-w-xl text-lg text-ink-soft">{selectedWorkCopy.supporting}</p>
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
+            {selectedWorkCopy.supporting}
+          </p>
         </Reveal>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-7">
+        <div className="grid grid-cols-1 gap-6 sm:auto-rows-fr sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((c, i) => (
             <ProjectCard
               key={c.project.slug}
               index={c.index}
               category={c.category}
-              title={c.project.title}
-              outcome={c.project.positioning}
+              title={c.title}
+              outcome={c.description}
               capabilities={c.project.capabilities}
               href={c.project.route}
               visual={c.visual}
-              delay={(i % 2) * 0.06}
+              compact
+              summary
+              visualClassName="aspect-video"
+              ctaLabel="View project"
+              delay={(i % 3) * 0.06}
             />
           ))}
         </div>
+
       </div>
     </section>
   )

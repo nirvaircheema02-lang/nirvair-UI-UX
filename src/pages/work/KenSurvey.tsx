@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
 import { ArrowLeft, ArrowRight, BarChart3, Compass, Send, Sparkles } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { PhoneFrame, ScreenFrame } from '../../components/case-study/ScreenFrame'
-import { ScrollShowcase } from '../../components/case-study/ScrollShowcase'
+import { ScreenFrame } from '../../components/case-study/ScreenFrame'
+import { KenSurveyLongPageMockup, KenSurveyResponsiveShowcase } from '../../components/case-study/KenSurveyShowcase'
 import { Snapshot } from '../../components/case-study/Snapshot'
 import { ICON_STROKE } from '../../components/ui/icons'
 import { Eyebrow } from '../../components/ui/Eyebrow'
@@ -12,10 +12,9 @@ import { SectionHeading } from '../../components/ui/SectionHeading'
 /**
  * Ken Survey case study.
  *
- * Every screenshot is a real capture of the live kenresearch.com survey
- * ecosystem at 1440x900 and 390x844, re-encoded for the web. No interface is
- * fabricated — the mockups change how a real screen is presented, never what
- * it shows.
+ * Source screenshots are captures of the live kenresearch.com survey
+ * ecosystem at 1440x900 and 390x844, re-encoded for the web. The studio
+ * mockups are illustrative compositions based on those captures.
  *
  * No business performance figures appear here. The repo holds no verified
  * Survey metrics, so impact is stated qualitatively rather than invented. The
@@ -81,71 +80,90 @@ export function KenSurvey() {
   return (
     <div>
       {/* ── 01 · Hero ─────────────────────────────────────────────────── */}
-      <header className="relative overflow-hidden bg-dark pb-16 pt-28 text-dark-ink md:pb-20 md:pt-32">
+      <header className="relative overflow-hidden border-b border-border bg-canvas-alt pb-10 pt-24 md:pb-14 md:pt-28">
         <div className="mx-auto max-w-6xl px-6">
           <Link
             to="/"
-            className="group inline-flex items-center gap-1.5 text-sm text-dark-ink-soft transition-colors hover:text-dark-ink"
+            className="group inline-flex items-center gap-1.5 text-sm text-ink-faint transition-colors hover:text-ink"
           >
             <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-0.5" />
             Back to Home
           </Link>
 
-          <motion.p
+          <div className="mt-7 grid items-center gap-7 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:gap-12">
+            <div>
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.05 }}
+                className="text-xs font-semibold uppercase tracking-[0.16em] text-accent"
+              >
+                Ken Survey · Ken Research · Product UX
+              </motion.p>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.12 }}
+                className="mt-4 max-w-xl font-sans text-[2.55rem] font-medium leading-[1.04] tracking-[-0.04em] text-ink sm:text-5xl lg:text-[3.55rem]"
+              >
+                Five research needs. One clear way in.
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="mt-5 max-w-lg text-base leading-relaxed text-ink-soft md:text-lg"
+              >
+                A discovery hub, survey library and five focused journeys that help businesses find
+                the research they need.
+              </motion.p>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full max-w-lg lg:max-w-none"
+            >
+              <img
+                src="/assets/projects/ken-survey/showcase/survey-monitor-cutout-v3.png"
+                alt="Survey hub presented on an angled studio monitor against the page background"
+                loading="eager"
+                decoding="async"
+                className="aspect-[16/10] w-full scale-110 object-contain lg:scale-[1.12]"
+              />
+            </motion.div>
+          </div>
+
+          <motion.dl
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-            className="mt-8 text-xs font-semibold uppercase tracking-[0.16em] text-dark-ink"
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="mt-9 hidden grid-cols-[1fr_1.35fr_0.7fr] gap-8 border-t border-ink/15 pt-6 lg:grid"
           >
-            Survey experience · Product UX · Responsive web
-          </motion.p>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.12 }}
-            className="mt-4 max-w-3xl font-sans text-4xl font-medium leading-[1.1] tracking-tight text-dark-ink md:text-5xl"
-          >
-            Designing one survey ecosystem for five different research needs.
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-5 max-w-xl leading-relaxed text-dark-ink-soft"
-          >
-            A structured digital experience that helps businesses discover and understand survey
-            solutions across employees, customers, dealers, market demand and brand perception.
-          </motion.p>
-
-          {/* The hero band of the live homepage rather than the full viewport
-              capture: the composition now clears a 900px viewport, and the
-              product UI stays large. No supporting screens — the verticals are
-              shown properly, and larger, two sections down. */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-10 max-w-4xl"
-          >
-            <ScreenFrame
-              src={`${A}survey-home-band.webp`}
-              alt="The live Ken Research Survey homepage — “Survey Consulting that shapes critical decisions”"
-              url="kenresearch.com/survey"
-              tone="dark"
-              elevation="floating"
-              priority
-            />
-          </motion.div>
+            {[
+              ['Role', 'Senior Product / UX Designer'],
+              ['Scope', 'UX · UI · Responsive design · System thinking'],
+              ['Platform', 'Web · Mobile web'],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <dt className="text-xs font-medium uppercase tracking-[0.14em] text-ink-faint">{label}</dt>
+                <dd className="mt-1.5 text-sm leading-snug text-ink">{value}</dd>
+              </div>
+            ))}
+          </motion.dl>
         </div>
       </header>
 
-      <Snapshot
-        role="Senior Product / UX Designer"
-        scope="UX · UI · Responsive design · System thinking"
-        platform="Web · Mobile web"
-      />
+      <div className="lg:hidden">
+        <Snapshot
+          role="Senior Product / UX Designer"
+          scope="UX · UI · Responsive design · System thinking"
+          platform="Web · Mobile web"
+        />
+      </div>
 
       {/* ── 02 · Context ──────────────────────────────────────────────── */}
       <section className="border-t border-border bg-surface py-20 md:py-24">
@@ -212,11 +230,10 @@ export function KenSurvey() {
             supporting="Five distinct survey experiences, built on one shared structure."
           />
 
-          {/* Three across then two: at five columns each page renders ~205px
-              wide — 14% of its real width, where nothing is readable. */}
-          <div className="mt-14 grid grid-cols-1 gap-x-6 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Three across, with the final two centred beneath them. */}
+          <div className="mt-14 grid grid-cols-1 gap-x-6 gap-y-9 sm:grid-cols-2 lg:grid-cols-6">
             {VERTICALS.map((v, i) => (
-              <Reveal key={v.slug} delay={0.04 * i} className="min-w-0">
+              <Reveal key={v.slug} delay={0.04 * i} className={`min-w-0 lg:col-span-2 ${i === 3 ? 'lg:col-start-2' : ''} ${i === 4 ? 'lg:col-start-4' : ''}`}>
                 <ScreenFrame
                   src={`${A}${v.img}.webp`}
                   alt={`${v.name} survey page on the live Ken Research site`}
@@ -299,8 +316,8 @@ export function KenSurvey() {
             title="Making the survey offering easier to explore."
             supporting="The hub introduces the category and the five research needs. The library takes a visitor deeper — the same five names become the filter that turns a vague need into a category."
           />
-          <div className="mt-14 grid grid-cols-1 items-start gap-12 lg:grid-cols-[1.6fr_1fr] lg:gap-14">
-            <Reveal>
+          <div className="mt-14 grid grid-cols-1 items-start gap-12 lg:grid-cols-[1fr_1.6fr] lg:gap-14">
+            <Reveal className="lg:order-2">
               <ScreenFrame
                 src={`${A}survey-library.webp`}
                 alt="The survey library page — a dark hero over a filter panel with survey-category facets and a grid of survey cards showing duration and question count"
@@ -308,7 +325,7 @@ export function KenSurvey() {
                 elevation="floating"
               />
             </Reveal>
-            <Reveal delay={0.12} className="space-y-6">
+            <Reveal delay={0.12} className="space-y-6 lg:order-1">
               <div>
                 <Eyebrow>Facets in the live filter</Eyebrow>
                 <ul className="mt-4 space-y-2.5">
@@ -361,13 +378,6 @@ export function KenSurvey() {
                   <p className="mt-2 leading-relaxed text-ink-soft">{p.d}</p>
                 </div>
               ))}
-              <ScreenFrame
-                src={`${A}bp-method.webp`}
-                alt="The “How We Do It” module on the Brand Perception page, describing a seven-step approach"
-                elevation="raised"
-                emphasis="secondary"
-                label="Method module — the same slot, vertical-specific content"
-              />
             </Reveal>
           </div>
         </div>
@@ -407,72 +417,40 @@ export function KenSurvey() {
       </section>
 
       {/* ── 09 · Responsive ───────────────────────────────────────────── */}
-      <section className="border-t border-border bg-canvas py-24 md:py-28">
-        <div className="mx-auto max-w-6xl px-6">
+      <section className="border-t border-border bg-canvas py-16 md:py-20">
+        <div className="mx-auto grid max-w-6xl items-center gap-8 px-6 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)] lg:gap-12">
           <SectionHeading
             eyebrow="Responsive experience"
-            title={
-              <>
-                Designed as a system,
-                <br className="hidden sm:block" /> not a desktop template.
-              </>
-            }
-            supporting="Real captures at 390 × 844. The shared structure had to stay clear on a screen a fifth of the width."
+            title="Designed as a system, not a desktop template."
+            supporting="The survey hub and two focused journeys, shown together across desktop and mobile."
           />
 
-          {/* One primary, two quieter companions at different heights with a
-              controlled overlap — sized so the group clears one viewport. */}
-          <div className="mx-auto mt-12 grid max-w-2xl grid-cols-2 items-center gap-4 sm:gap-6 lg:grid-cols-[0.78fr_1fr_0.78fr] lg:gap-2">
-            <Reveal delay={0.09} className="lg:translate-y-8">
-              <PhoneFrame
-                src={`${A}m-employee.webp`}
-                alt="Employee Engagement survey page on a 390px-wide mobile viewport"
-                label="Employee Engagement"
-                emphasis="secondary"
-              />
-            </Reveal>
-            <Reveal className="col-span-2 mx-auto w-2/3 sm:w-1/2 lg:z-10 lg:col-span-1 lg:mx-0 lg:w-full lg:-translate-y-3">
-              <PhoneFrame
-                src={`${A}m-brand.webp`}
-                alt="Brand Perception survey page on a 390px-wide mobile viewport"
-                label="Brand Perception"
-              />
-            </Reveal>
-            <Reveal delay={0.18} className="lg:translate-y-12">
-              <PhoneFrame
-                src={`${A}m-dealers.webp`}
-                alt="Dealer’s Voice survey page on a 390px-wide mobile viewport"
-                label="Dealer’s Voice"
-                emphasis="secondary"
-              />
-            </Reveal>
-          </div>
-
-          <Reveal delay={0.15} className="mx-auto mt-12 max-w-2xl text-lg leading-relaxed lg:mt-14">
-            <p className="text-ink">
-              The five-way switch changes most: a horizontal tab row becomes a scrollable strip, so
-              a visitor can still move between research needs without a menu.
-            </p>
+          <Reveal delay={0.09} className="h-[300px] overflow-hidden rounded-lg sm:h-[390px] md:h-[430px] lg:h-[420px] xl:h-[480px]">
+            <KenSurveyResponsiveShowcase />
           </Reveal>
         </div>
       </section>
 
-      {/* ── 10 · Long-scroll showcase — the only one on the page ───────── */}
-      <section className="border-t border-border bg-canvas-alt py-24 md:py-28">
+      {/* ── 10 · Full-page visual ──────────────────────────────────────── */}
+      <section className="border-t border-border bg-canvas-alt pb-12 pt-20 md:py-20">
         <div className="mx-auto max-w-6xl px-6">
           <SectionHeading
             eyebrow="Depth"
-            title="A vertical page, end to end."
-            supporting="Every vertical runs past 8,000 pixels. The full Brand Perception page, scrollable in place."
+            title="A vertical page, beyond the first screen."
+            supporting="The complete Brand Perception page sits beside larger views of its opening and research method."
           />
-          <Reveal delay={0.12} className="mt-12">
-            <ScrollShowcase
-              src={`${A}bp-longpage.webp`}
-              alt="The complete Brand Perception survey page from hero to cross-navigation"
-              url="kenresearch.com/brand-perception-survey"
-              height={560}
-            />
+          <Reveal delay={0.12} className="mt-8">
+            <a
+              href="/previews/ken-survey-showcase/brand.png"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open the full Brand Perception page capture"
+              className="group block h-[340px] overflow-hidden rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 sm:h-[440px] lg:h-[430px]"
+            >
+              <KenSurveyLongPageMockup />
+            </a>
           </Reveal>
+          <p className="mt-4 text-sm text-ink-faint">Open the visual to inspect the full page capture.</p>
         </div>
       </section>
 

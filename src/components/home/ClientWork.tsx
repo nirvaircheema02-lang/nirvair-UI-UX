@@ -1,4 +1,5 @@
 import { clientProjects } from '../../lib/projects'
+import { ArjunRealtyMockup } from './ArjunRealtyMockup'
 import { BrowserChrome } from '../ui/BrowserChrome'
 import { ProjectCard } from '../ui/ProjectCard'
 import { SectionHeading } from '../ui/SectionHeading'
@@ -7,7 +8,7 @@ export function ClientWork() {
   const [arjunRealty, amritStudio] = clientProjects
 
   return (
-    <section className="border-t border-border bg-canvas-alt py-24 md:py-32">
+    <section id="client-work" className="scroll-mt-20 border-t border-border bg-canvas-alt py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
           compact
@@ -24,13 +25,7 @@ export function ClientWork() {
             capabilities={arjunRealty.capabilities}
             href={arjunRealty.route}
             compact
-            visual={
-              <BrowserChrome
-                url="arjunrealty.in"
-                src={arjunRealty.cover}
-                alt={arjunRealty.coverAlt}
-              />
-            }
+            visual={<ArjunRealtyMockup />}
           />
           <ProjectCard
             index="02"

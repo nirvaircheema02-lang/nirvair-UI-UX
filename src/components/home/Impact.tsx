@@ -1,6 +1,7 @@
 import { Eyebrow } from '../ui/Eyebrow'
 import { ArrowRight, BarChart3, Layers, Users, Zap } from 'lucide-react'
 import type { ComponentType } from 'react'
+import { Link } from 'react-router-dom'
 import { impact, impactCopy } from '../../lib/site'
 import { IconBadge } from '../ui/IconBadge'
 import { Reveal } from '../ui/Reveal'
@@ -47,10 +48,7 @@ export function Impact() {
               <IconBadge icon={ICONS[item.icon]} size="lg" />
 
               <div className="min-w-0">
-                <p className="text-xs tracking-[0.1em] text-ink-faint">
-                  {String(i + 1).padStart(2, '0')}
-                </p>
-                <h3 className="mt-1.5 font-sans text-xl font-medium tracking-tight text-ink md:text-2xl">
+                <h3 className="font-sans text-xl font-medium tracking-tight text-ink md:text-2xl">
                   {item.label}
                 </h3>
                 <p className="mt-3 max-w-[34ch] leading-relaxed text-ink-soft">{item.detail}</p>
@@ -65,6 +63,14 @@ export function Impact() {
                   />
                   <span className="text-ink">{item.to}</span>
                 </p>
+
+                <Link
+                  to={item.proof.href}
+                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
+                >
+                  Seen in {item.proof.label}
+                  <ArrowRight size={14} aria-hidden />
+                </Link>
               </div>
             </Reveal>
           ))}

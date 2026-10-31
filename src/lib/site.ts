@@ -170,7 +170,7 @@ export const impactCopy = {
   eyebrow: 'Design Impact, Beyond the Interface',
   heading: 'What changed beyond the final screen.',
   supporting:
-    'How the work improved scale, consistency, performance and delivery — not just the interface.',
+    'How the work improved scale, consistency, clarity and delivery — each one traced to a project above.',
 }
 
 export const impact = [
@@ -180,6 +180,7 @@ export const impact = [
     from: 'Manual',
     to: 'Scalable',
     icon: 'scale',
+    proof: { label: 'Market Intelligence', href: '/work/market-intelligence' },
   },
   {
     label: 'Consistency',
@@ -187,13 +188,15 @@ export const impact = [
     from: 'Fragmented',
     to: 'Shared',
     icon: 'consistency',
+    proof: { label: 'Ken Design System', href: '/work/design-system' },
   },
   {
-    label: 'Performance',
+    label: 'Clarity',
     detail: 'Reduced friction across important user journeys.',
     from: 'Friction',
     to: 'Clearer',
     icon: 'performance',
+    proof: { label: 'Conversion & Lead Journeys', href: '/work/conversion' },
   },
   {
     label: 'Delivery',
@@ -201,6 +204,7 @@ export const impact = [
     from: 'Handoff',
     to: 'Connected',
     icon: 'delivery',
+    proof: { label: 'AI Design Audit & Redesign', href: '/work/agent-pipeline' },
   },
 ]
 

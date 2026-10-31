@@ -14,6 +14,8 @@ type ProjectCardProps = {
   visualClassName?: string
   delay?: number
   compact?: boolean
+  summary?: boolean
+  ctaLabel?: string
   external?: boolean
 }
 
@@ -28,7 +30,9 @@ export function ProjectCard({
   visualClassName = '',
   delay = 0,
   compact = false,
+  summary = false,
   external = false,
+  ctaLabel,
 }: ProjectCardProps) {
   const content = (
     <>
@@ -38,24 +42,28 @@ export function ProjectCard({
         </div>
       </div>
 
-      <div className={`flex flex-1 flex-col border-t border-border ${compact ? 'p-5 md:p-6' : 'p-6 md:p-7'}`}>
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+      <div className={`flex flex-1 flex-col border-t border-border ${summary ? 'px-5 py-4' : compact ? 'p-5 md:p-6' : 'p-6 md:p-7'}`}>
+        {!summary && <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
           {index} / {category}
-        </p>
+        </p>}
         <h3
-          className={`mt-3 font-sans font-medium tracking-tight text-ink transition-colors duration-300 group-hover:text-accent group-focus-visible:text-accent ${compact ? 'text-lg md:text-xl' : 'text-xl md:text-2xl'}`}
+          className={`${summary ? '' : 'mt-3'} font-sans font-medium tracking-tight text-ink ${summary ? 'text-lg leading-6' : compact ? 'text-lg md:text-xl' : 'text-xl md:text-2xl'}`}
         >
           {title}
         </h3>
-        <p className="mt-2 max-w-md text-ink-soft">{outcome}</p>
+        <p className={`mt-2 max-w-md text-ink-soft ${summary ? 'text-sm leading-5' : ''}`}>{outcome}</p>
 
-        <div className="mt-auto flex items-end justify-between pt-6">
-          <p className="max-w-xs text-sm text-ink-faint">{capabilities.join(' · ')}</p>
+        <div className={`mt-auto ${summary ? 'pt-3' : 'pt-6'} ${ctaLabel ? '' : 'flex items-end justify-between'}`}>
+          {!summary && <p className="max-w-xs text-sm text-ink-faint">{capabilities.join(' · ')}</p>}
+          <span className={summary ? 'flex items-center justify-between text-sm font-medium text-accent' : ctaLabel ? 'mt-5 flex items-center justify-between border-t border-border pt-4 text-sm font-medium text-accent' : 'inline-flex'}>
+          {ctaLabel}
           <ArrowUpRight
             size={20}
             strokeWidth={1.6}
+            aria-hidden="true"
             className="shrink-0 text-icon transition-all duration-200 group-hover:-translate-y-[3px] group-hover:translate-x-[3px] group-hover:text-accent group-focus-visible:-translate-y-[3px] group-focus-visible:translate-x-[3px] group-focus-visible:text-accent"
           />
+          </span>
         </div>
       </div>
     </>
